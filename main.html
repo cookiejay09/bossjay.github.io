@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-control" content="public">
+    <title>BOSS J | VOUCHER PORTAL</title>
+    <link rel="icon" type="logo" href="F:\0. Vistual Studio Code\1. PORTAL - WIFI HOTSPOT\Portal\logo.png">
+
+    <style>
+        body {
+            background-color: #080101;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 0.875rem;
+            height: 100%;
+            line-height: 1.5;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        .wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%; 
+            transform: translate(-50%, -50%);
+            max-width: 20rem;
+            height: 450px;
+            padding: 30px 30px 40px 30px;
+            border-radius: 40px;
+            border-top: 20px solid #05051f;
+            border-bottom: 20px solid #0c0525;
+            box-shadow:
+                0 -2px 0 #efeff1,
+                0 2px 0 #efeef3;
+            box-shadow: 13px 13px 20px #cded1c, -13px -13px -20px #033a0a;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            position: relative; 
+            margin: 0 auto;
+            width: 180px;
+            height: 180px;
+            overflow: hidden;
+            z-index: 1;
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: inherit;
+        }
+
+        .voucher-code-price {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .form_field {
+            display: flex;
+            margin: 0.875rem;
+        }
+        .form_field input:not(:placeholder-shown) {
+            color: #2eee07;
+        }
+        
+        .form_input {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            background-color: #080808;
+            border: none;
+        }
+        
+        svg {
+            transform: scale(2);
+        }
+        
+        
+        .form_field label {
+            background-color: #0c0c0c;
+            border-bottom-right-radius: 0;
+            border-top-right-radius: 0;
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .form_field input:focus {
+            color: #1cd632;
+        }
+        
+        .form_field svg.icon {
+            fill: #1cd632;
+            width: 1em;
+            height: 1em;
+            margin-right: 0.5rem;
+        }
+        
+        .form_field button {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            background-color: #0a0250;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .form_field button:hover {
+            background-color: #92e013;
+        }
+        
+        .form .form_field button[type="submit"]:hover {
+            color: #0f0f0f;
+            font-weight: bold;
+            font-size: 15px;
+        
+        }
+        
+        .hidden {
+            border: 0;
+            clip: rect(0 0 0 0);
+            height: 1px;
+            margin: 1px;
+            overflow: hidden;
+            position: absolute;
+            width: 1px;
+        }
+        
+        .description-box {
+            background-color: #f0f0f056;
+            font-size: 16px;
+            padding: 5px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+
+</head>
+
+<body style="background-image: url('background.png'); background-size: cover; background-position: center;">
+    <div class="wrapper">
+        <div class="logo"> <img src="logo.png" alt=""></div>
+        
+        <form id="voucher-form" method="post" class="form login">
+            <p style="font-weight: bold; color: #ffffff; text-align: center; font-size: 15px;">⬇️PROMOS⬇️</p>
+            <div class="voucher-code-price">
+                <select id="voucher-code-select" onchange="showDescription(this.value)">
+                    <option value="details">CLICK ME</option>
+                    <option value="P5">₱5.00</option>
+                    <option value="P10">₱10.00</option>
+                    <option value="P20">₱20.00</option>
+                </select>
+                <br>
+                <br>
+                <div class="description-box">
+                    <p id="description"></p>
+                </div>
+            </div>
+            
+            <div class="form_field">
+                <label for="login_voucher">
+                    <svg class="icon">
+                        <use xlink:href="#lock"></use>
+                    </svg>
+                    <span class="hidden">Enter Voucher</span>
+                </label>
+                <input id="login_voucher" type="text" name="Voucher" class="form_input" placeholder="Type 6-Digit Code Here" required="" maxlength="6" inputmode="numeric" pattern="[0-9]*">
+            </div>
+            
+            <div class="form_field">
+                <button type="submit">Connect Now</button>
+                <p id="success-message"></p>
+            </div>
+            
+            <div style="display:none">
+                <span>clientMac:</span>
+                <input type="text" id="cid" name="clientMac" />
+            </div>
+        </form>
+    </div>
+<svg>
+    xmlns="http://www.w3.org/2000/svg" class="icons"><symbol id="lock" viewBox="0 0 1792 1792">
+        <path d="M640 768h512V576q0-106-75-181t-181-75-181 75-75 181v192zm832 96v576q0 40-28 68t-68 28H416q-40 
+        0-68-28t-28-68V864q0-40 28-68t68-28h32V576q0-184 132-316t316-132 316 132 132 316v192h32q40 0 68 28t28 68z">
+    </path></symbol>
+</svg>
+        
+</body>
+
+<script>
+    var voucherForm = {
+      init: function() {
+        this.form = document.getElementById('voucher-form');
+        this.inputBox = document.getElementById('login_voucher');
+        this.voucherTypeSelect = document.getElementById('voucher-type');
+        this.bindEvents();
+      },
+      bindEvents: function() {
+        this.inputBox.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            voucherForm.submitForm();
+          }
+        });
+      },
+      submitForm: function() {
+  let voucherCode = this.inputBox.value;
+  let voucherType = this.voucherTypeSelect.value;
+  let validVoucherTypes = ['P5', 'P10', 'P20'];
+  // let validVoucherCodes = {
+  //   'P5': ['123456', '654321', '789012'],
+  //   'P10': ['345678', '901234', '567890'],
+  //   'P20': ['456789', '234567', '890123']
+  // };
+
+  console.log('submitForm called');
+  console.log('voucherCode:', voucherCode);
+  console.log('voucherType:', voucherType);
+
+  // Check if the voucher type is valid
+  if (validVoucherTypes.includes(voucherType)) {
+    console.log('voucherType is valid');
+    // Validate voucher code here (e.g., check if it's one of the generated codes)
+    if (validVoucherCodes[voucherType].includes(voucherCode)) {
+      console.log('voucherCode is valid');
+      window.location.href = `status.html?voucherType=${voucherType}&voucher=${voucherCode}`;
+    } else {
+      console.log('voucherCode is invalid');
+      alert('Invalid voucher code. Please try again.');
+    }
+  } else {
+    console.log('voucherType is invalid');
+    alert('Invalid voucher type. Please select a valid voucher type.');
+  }
+}
+    };
+  
+    voucherForm.init();
+  
+    function showDescription(value) {
+      var description = '';
+      switch (value) {
+  
+        case 'P5':
+          description = '4 HRS. WITH 3X PAUSE';
+          break;
+        case 'P10':
+          description = '1 DAY WITH 1X PAUSE';
+          break;
+        case 'P20':
+          description = '2 DAYS WITH 1X PAUSE';
+          break;
+        default:
+          description = 'Descriptions';
+      }
+      document.getElementById('description').innerHTML = description;
+      document.getElementById('description').style.fontWeight = 'bold';
+      document.getElementById('description').style.color = 'white';
+    }
+  </script>
+</html>
